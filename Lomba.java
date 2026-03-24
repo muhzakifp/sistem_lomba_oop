@@ -1,5 +1,4 @@
 
-
 public class Lomba
 {
     private String idLomba;
