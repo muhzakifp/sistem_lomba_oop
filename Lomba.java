@@ -44,7 +44,22 @@
             System.out.println("Maaf, kuota sudah penuh ! ");
         }
     }
+
     // method 3
+    public void kurangiDaftar()
+    {
+        if (jumlahPendaftar > 0)
+        {
+            jumlahPendaftar--;
+            System.out.println("Pendaftar : "+jumlahPendaftar);
+        }
+        else
+        {
+            System.out.println("Pendaftar masih kosong ! ");
+        }
+    }
+    
+    //method 4
     public void tampilInformasi()
     {
         System.out.println("ID Lomba :  "+idLomba);

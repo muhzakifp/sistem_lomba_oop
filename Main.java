@@ -1,7 +1,7 @@
 import java.util.ArrayList;
 import java.util.Scanner;
 
-class Main
+public class Main
 {
     // ARRAY LIST SETIAP CLASS
     static ArrayList<Mahasiswa> DaftarMahasiswa = new ArrayList<>();
@@ -30,11 +30,11 @@ class Main
 
             // FITUR MENU
             System.out.println("\n---> SISTEM PENDAFTARAN LOMBA <---");
-            System.out.println("1.Daftarkan Mahasiswa");
+            System.out.println("1.Tambah Mahasiswa");
             System.out.println("2.Daftarkan Lomba");
             System.out.println("3.Lihat Bukti Pendaftaran");
             System.out.println("4.Update Status Pendaftaran");
-            System.out.println("5.Keluar");
+            System.out.println("5. Keluar");
             System.out.print("Pilih menu : ");
             opsi = input.nextInt();
             input.nextLine();
@@ -263,10 +263,32 @@ class Main
                 System.out.print("Status baru (Disetujui/Ditolak) : ");
                 String statusBaru = input.nextLine();
                 pendaftar_terpilih.updateStatus(statusBaru);
+                if (statusBaru.equalsIgnoreCase("ditolak"))
+                {
+                    System.out.print("Apakah anda yakin ingin menolak pendaftar bernama "+pendaftar_terpilih.getclassMahasiswa().getNama()+" ? (Y/N) : ");
+                    String tolak = input.nextLine();
+                    if (tolak.equalsIgnoreCase("y")) 
+                        {
+                            Lomba lmb = pendaftar_terpilih.getclassLomba();
+                            lmb.kurangiDaftar();
+                            DaftarRegistrasi.remove(pendaftar_terpilih);
+                            System.out.println("ID pendaftar "+pendaftar_terpilih.getiddaftar()+" atas nama "+pendaftar_terpilih.getclassMahasiswa().getNama()+" telah di "+statusBaru+" !");
+                        }
+                    else
+                    {
+                        System.out.println("Penolakan dibatalkan");
+                        return;
+                    }
+                }
+                else
+                {
+                    System.out.println("ID pendaftar "+pendaftar_terpilih.getiddaftar()+" atas nama "+pendaftar_terpilih.getclassMahasiswa().getNama()+" telah di "+statusBaru+" !");
+                }
             }
             else
             {
                 System.out.println("Index pendaftar tidak valid !");
+                return;
             }
             
         }
