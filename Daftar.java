@@ -1,3 +1,5 @@
+import java.util.ArrayList;;
+
 public class Daftar
 {
     private Mahasiswa mhs;
@@ -49,6 +51,18 @@ public class Daftar
     {
         this.status = status_baru;
         System.out.println("Status peserta pendaftaran atas nama "+mhs.getNama()+" telah "+status);   
+    }
+
+    public static boolean cekDaftar(ArrayList<Daftar> cek,Lomba lmb, Mahasiswa mhs)
+    {
+        for(Daftar d :  cek)
+        {
+            if(d.getclassMahasiswa().getNim().equals(mhs.getNim()) && d.getclassLomba().getId().equals(lmb.getId()))
+            {
+                return true;
+            }
+        }
+        return false;
     }
 
     public void tampilBuktiDaftar()

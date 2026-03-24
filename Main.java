@@ -15,7 +15,7 @@ public class Main
         DaftarLomba.add(new Lomba("LO2624003", "catur", "Olahraga", "11-Januari-2026", 10));
         DaftarLomba.add(new Lomba("LO2624004", "Futsal", "Olahraga", "15-Februari-2026", 15));
         DaftarLomba.add(new Lomba("LO2624005", "Desain Poster", "Seni dan Kreativitas", "2-Februari-2026", 5));
-        DaftarLomba.add(new Lomba("LO2624006", "Hafidz", "Keagamaan", "5-Februari-2026", 5));
+        DaftarLomba.add(new Lomba("LO2624006", "Hafidz Qur'an", "Keagamaan", "5-Februari-2026", 5));
         DaftarLomba.add(new Lomba("LO2624007", "Karya Ilmiah", "Penelitian", "10-Januari-2026", 5));
         DaftarLomba.add(new LombaAkademik("LO2624008", "Olimpiade Matematika", "Akademik", "12-januari-2026", 5, "Medium", "Aljabar dan Kalkulus"));
 
@@ -156,6 +156,16 @@ public class Main
                     if (index >=1 && index <= urutan_mahasiswa.size())
                     {
                         Mahasiswa mhs_terpilih = urutan_mahasiswa.get(index-1);
+
+                        if(Daftar.cekDaftar(DaftarRegistrasi, lomba_terpilih,mhs_terpilih))
+                        {
+                            System.out.println("Pendaftaran Gagal - Anda sudah mendaftar");
+                            System.out.println("NIM : "+mhs_terpilih.getNim());
+                            System.out.println("Nama : "+mhs_terpilih.getNama());
+                            System.out.println("Ikut lomba : "+lomba_terpilih.getNamaLomba());
+                            return;
+                        }
+
                         System.out.println("MEMILIH MAHASISWA");
                         mhs_terpilih.getDataMahasiwa();
                         System.out.print("Tanggal Daftar (DD-MM-YYY) : ");
@@ -234,7 +244,7 @@ public class Main
             int nodftr = 1;
             for (Daftar d : DaftarRegistrasi)
             {
-                System.out.println((nodftr)+"."+d.getiddaftar()+"-"+d.getclassMahasiswa().getNama()+"-"+d.getclassLomba().getNamaLomba());
+                System.out.println((nodftr)+"."+d.getiddaftar()+"|"+d.getclassMahasiswa().getNama()+"|"+d.getclassLomba().getNamaLomba());
                 urutanDaftar.add(d);
                 nodftr++;
             }

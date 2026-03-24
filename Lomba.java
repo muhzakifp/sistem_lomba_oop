@@ -31,18 +31,16 @@ public class Lomba
         return jumlahPendaftar < kuota;
     }
 
-    public int tmbhPendaftar()
+    public void tmbhPendaftar()
     {
         if (cekKuota())
         {
             jumlahPendaftar++;
             System.out.println("Pendaftaran lomba berhasil, sisa kuota "+(kuota-jumlahPendaftar)+"!");
-            return jumlahPendaftar;
         }
         else
         {
             System.out.println("Maaf, kuota sudah penuh ! ");
-            return jumlahPendaftar;
         }
     }
     public void tampilInformasi()
@@ -51,5 +49,7 @@ public class Lomba
         System.out.println("Nama Lomba :  "+namaLomba);
         System.out.println("Bidang :  "+bidang);
         System.out.println("Tanggal :  "+tanggalLomba);
+        System.out.println("Pendaftar :"+jumlahPendaftar);
+        System.out.println("Kuota : "+(kuota-jumlahPendaftar));
     }
 }
