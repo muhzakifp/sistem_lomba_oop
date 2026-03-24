@@ -1,8 +1,9 @@
 import java.util.ArrayList;
 import java.util.Scanner;
 
-public class Main
+class Main
 {
+    // ARRAY LIST SETIAP CLASS
     static ArrayList<Mahasiswa> DaftarMahasiswa = new ArrayList<>();
     static ArrayList<Lomba> DaftarLomba = new ArrayList<>();
     static ArrayList<Daftar> DaftarRegistrasi = new ArrayList<>();
@@ -10,6 +11,7 @@ public class Main
 
     public static void main(String[] args)
     {
+        // DATA PERLOMBAAN
         DaftarLomba.add(new Lomba("LO2624001", "Lomba pengembangan Website", "Teknologi", "1-Januari-2026", 20));
         DaftarLomba.add(new Lomba("LO2624002", "Lomba robotik", "Teknologi", "12-Januari-2026", 20));
         DaftarLomba.add(new Lomba("LO2624003", "catur", "Olahraga", "11-Januari-2026", 10));
@@ -22,9 +24,11 @@ public class Main
         int opsi;
         do
         {
+            // SYARAT PENDAFTARAN
             System.out.println("\n! Syarat Pendaftaran !");
             Daftar.syaratDaftar();
 
+            // FITUR MENU
             System.out.println("\n---> SISTEM PENDAFTARAN LOMBA <---");
             System.out.println("1.Daftarkan Mahasiswa");
             System.out.println("2.Daftarkan Lomba");
@@ -35,6 +39,7 @@ public class Main
             opsi = input.nextInt();
             input.nextLine();
 
+            // PERCBANGAN SWITCH
             switch (opsi)
             {
                 case 1: TambahMahasiswa(); break;
@@ -46,23 +51,25 @@ public class Main
             }
         }while (opsi !=5);
     }
+
+    // FUNCTION TAMBAH MAHASISWA
     public static void TambahMahasiswa()
     {
-        String nim, nama, prodi,email,nohp;
+        String nim, nama, prodi,kampus,nohp;
         int smstr;
 
-        System.out.println("---> DAFTARKAN MAHASISWA <---");
+        System.out.println("\n---> DAFTARKAN MAHASISWA <---");
         System.out.print("NIM : ");
         nim = input.nextLine();
-        for (Mahasiswa mhs  : DaftarMahasiswa)
+        for (Mahasiswa mhs  : DaftarMahasiswa) // untuk mengecek isi objek mhs yang terdapat pada DaftarMahasiswa
         {
-            if(mhs.getNim().equals(nim))
+            if(mhs.getNim().equals(nim)) // untuk mengecek NIM 
             {
-                System.out.println("NIM sudah adaa !");
+                System.out.println("NIM sudah adaa !"); 
                 return;
             }
         }
-        System.out.print("Nama : ");
+        System.out.print("Nama : "); 
         nama = input.nextLine();
         System.out.print("Prodi : ");
         prodi = input.nextLine();
@@ -75,37 +82,31 @@ public class Main
             System.out.println("--- Pendaftar wajib Mahasiswa Semester 1-4 ---");
             return;
         }
-        System.out.print("Email : ");
-        email = input.nextLine().trim();
-        if (email.endsWith("@gmail.com"))
-        {
-            System.out.print("Nomor HP aktif : ");
-            nohp = input.nextLine();
+        System.out.print("Kampus Asal : ");
+        kampus = input.nextLine().trim();
+        System.out.print("Nomor HP aktif : ");
+        nohp = input.nextLine();
 
-            Mahasiswa mhs = new Mahasiswa(nim, nama, prodi, smstr, email, nohp);
-            DaftarMahasiswa.add(mhs);
-            System.out.println("Mahasisswa berhasil ditambahkan ! ");
-        }
-        else
-        {
-            System.out.println("Email tidak valid !");
-            return;
-        }
-        
+        Mahasiswa mhs = new Mahasiswa(nim, nama, prodi, smstr, kampus, nohp); // objek mhs dibuat 
+        DaftarMahasiswa.add(mhs); // data objek akan tersimpan di ArrayList DaftarMahasiswa
+        System.out.println("Mahasisswa berhasil ditambahkan ! ");
     }
     
+    // FUNCTION DAFTAR LOMBA
     public static void DaftarLomba()
     {
+        // ARRAYLIST UNTUK MENAMPILKAN URUTAN LOMBA
         ArrayList<Lomba> urutan_lomba = new ArrayList<>();
+
         int no = 1;
-        if(DaftarMahasiswa.isEmpty())
+        if(DaftarMahasiswa.isEmpty()) // pengcekan kondisi jika ArrayList DaftarMahasiswa kosong 
         {
             System.out.println("Belum ada data Mahasiswa ! ");
             return;
         }
-        System.out.println("---> DAFTAR LOMBA TERSEDIA <---");
+        System.out.println("\n---> DAFTAR LOMBA TERSEDIA <---"); 
         System.out.println("[--LOMBA UMUM--]");
-        for (Lomba l : DaftarLomba)
+        for (Lomba l : DaftarLomba) 
         {
             if(!(l instanceof LombaAkademik))
             {
@@ -126,14 +127,14 @@ public class Main
         }
 
         System.out.print("Pilih index lomba : ");
-        int pilih_lomba =  input.nextInt();
+        int pil_lmb =  input.nextInt();
         input.nextLine();
         
-        if (pilih_lomba >=1 && pilih_lomba <= urutan_lomba.size())
+        if (pil_lmb >=1 && pil_lmb <= urutan_lomba.size())
         {
-            Lomba lomba_terpilih = urutan_lomba.get(pilih_lomba-1);
+            Lomba lomba_terpilih = urutan_lomba.get(pil_lmb-1);
 
-            System.out.println("--- ANDA MEMILIH LOMBA ---");
+            System.out.println("\n--- ANDA MEMILIH LOMBA "+lomba_terpilih.getNamaLomba().toUpperCase() +"---");
             lomba_terpilih.tampilInformasi();
             
             System.out.print("Apakah yakin ingin mendaftar? (Y/N) : ");
@@ -157,16 +158,17 @@ public class Main
                     {
                         Mahasiswa mhs_terpilih = urutan_mahasiswa.get(index-1);
 
+                        // cek kondisi supaya tidak terjadi duplikat pendaftaran pada nama lomba yang sama
                         if(Daftar.cekDaftar(DaftarRegistrasi, lomba_terpilih,mhs_terpilih))
                         {
-                            System.out.println("Pendaftaran Gagal - Anda sudah mendaftar");
+                            System.out.println("Pendaftaran Gagal - Anda sudah mendaftar lomba yang sama ! ");
                             System.out.println("NIM : "+mhs_terpilih.getNim());
                             System.out.println("Nama : "+mhs_terpilih.getNama());
                             System.out.println("Ikut lomba : "+lomba_terpilih.getNamaLomba());
                             return;
                         }
 
-                        System.out.println("MEMILIH MAHASISWA");
+                        System.out.println("MEMILIH MAHASISWA BERNAMA "+mhs_terpilih.getNama().toUpperCase());
                         mhs_terpilih.getDataMahasiwa();
                         System.out.print("Tanggal Daftar (DD-MM-YYY) : ");
                         String tgl = input.nextLine();
@@ -198,7 +200,7 @@ public class Main
 
     public static void LihatBuktiDaftar()
     {
-        System.out.println("---> BUKTI PENDAFTARAN LOMBA <---");
+        System.out.println("\n---> BUKTI PENDAFTARAN LOMBA <---");
         if(DaftarRegistrasi.isEmpty())
         {
             System.out.println("Belum ada Pendaftaran");
@@ -232,7 +234,7 @@ public class Main
 
     public static void UpdateStatus()
     {
-        System.out.println("---> UPDATE STATUS PENDAFTARAN <---");
+        System.out.println("\n---> UPDATE STATUS PENDAFTARAN <---");
         if(DaftarRegistrasi.isEmpty())
         {
             System.out.println("Belum ada pendaftaran");

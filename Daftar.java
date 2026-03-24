@@ -1,6 +1,6 @@
 import java.util.ArrayList;;
 
-public class Daftar
+class Daftar
 {
     private Mahasiswa mhs;
     private Lomba lmb;
@@ -24,7 +24,7 @@ public class Daftar
     public Mahasiswa getclassMahasiswa() {return mhs;}
     public Lomba getclassLomba() {return lmb;}
 
-
+    // method 1
     public void prosesPendaftaran(Lomba l)
     {
         System.out.println("Memproses pendaftaran untukk ID: "+idPendaftar);
@@ -39,6 +39,8 @@ public class Daftar
             status = "Gagal - Kuota Penuh !";
         }
     }
+
+    // method 2
     public static void syaratDaftar()
     {
         System.out.println("1. Mahasiswa Aktif di PTN/PTS");
@@ -47,12 +49,14 @@ public class Daftar
         System.out.println("4. Dapat izin dari dosen wali");
     }
 
+    // method 3
     public void updateStatus(String status_baru)
     {
         this.status = status_baru;
         System.out.println("Status peserta pendaftaran atas nama "+mhs.getNama()+" telah "+status);   
     }
 
+    // method 4
     public static boolean cekDaftar(ArrayList<Daftar> cek,Lomba lmb, Mahasiswa mhs)
     {
         for(Daftar d :  cek)
@@ -65,15 +69,19 @@ public class Daftar
         return false;
     }
 
+    // method 5
     public void tampilBuktiDaftar()
     {
-        System.out.println("---> BUKTI PENDAFTARAN "+mhs.getNama().toUpperCase()+" <---");
+        System.out.println("\n---> BUKTI PENDAFTARAN "+mhs.getNama().toUpperCase()+" <---");
         System.out.println("ID pendaftar :"+idPendaftar);
+        System.out.println("Tanggal Daftar :"+tanggalDaftar);
         System.out.println("Nama Mahasiswa : "+mhs.getNama());
         System.out.println("Prodi : "+mhs.getProdi());
         System.out.println("Nomor HP : "+mhs.getNohp());
-        System.out.println("Email : "+mhs.getEmail());
-        System.out.println("Tanggal Daftar :"+tanggalDaftar);
+        System.out.println("Kampus Asal : "+mhs.getKampusAsal());
+        System.out.println("Lomba diikuti : "+lmb.getNamaLomba());
+        System.out.println("Bidang Lomba : "+lmb.getBidang());        
+        System.out.println("Tanggal Lomba : "+lmb.getTanggal());        
         System.out.println("Status :"+status);
     }
 

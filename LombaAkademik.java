@@ -1,5 +1,5 @@
 
-public class LombaAkademik extends Lomba
+class LombaAkademik extends Lomba
 {
     String level_kesulitan;
     String materi_ujian;
@@ -11,18 +11,14 @@ public class LombaAkademik extends Lomba
         this.materi_ujian = materi;
     }
 
-    public void hitungSkor(Lomba l)
-    {
-       System.out.println("Hitung skor lomba"+l.getNamaLomba());
-       System.out.println("Level "+level_kesulitan);
-    }
-
+    // method 1
     public void tampilMatUjian()
     {
         System.out.println("Materi Ujian : "+materi_ujian);
         System.out.println("Level Kesulitan : "+level_kesulitan);
     }
 
+    //method 2
     @Override 
     public void tampilInformasi()
     {

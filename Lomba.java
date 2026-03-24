@@ -1,5 +1,4 @@
-
-public class Lomba
+ class Lomba
 {
     private String idLomba;
     private String namaLomba;
@@ -26,11 +25,13 @@ public class Lomba
     public int getKuota() {return kuota;}
     public int getJmlhDaftar() {return jumlahPendaftar;}
 
+    // method 1
     public boolean cekKuota()
     {
         return jumlahPendaftar < kuota;
     }
 
+    // method 2
     public void tmbhPendaftar()
     {
         if (cekKuota())
@@ -43,6 +44,7 @@ public class Lomba
             System.out.println("Maaf, kuota sudah penuh ! ");
         }
     }
+    // method 3
     public void tampilInformasi()
     {
         System.out.println("ID Lomba :  "+idLomba);
