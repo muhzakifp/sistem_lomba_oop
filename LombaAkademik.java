@@ -1,10 +1,9 @@
-
 class LombaAkademik extends Lomba
 {
-    String level_kesulitan;
-    String materi_ujian;
+    protected String level_kesulitan;
+    protected String materi_ujian;
 
-    public LombaAkademik(String idlomba, String namalomba, String bidang, String tglLomba,int kuota, String sulit,String materi)
+    LombaAkademik(String idlomba, String namalomba, String bidang, String tglLomba,int kuota, String sulit,String materi)
     {
         super(idlomba,namalomba,bidang,tglLomba,kuota);
         this.level_kesulitan = sulit;
@@ -12,18 +11,22 @@ class LombaAkademik extends Lomba
     }
 
     // method 1
-    public void tampilMatUjian()
+    void tampilMatUjian()
     {
         System.out.println("Materi Ujian : "+materi_ujian);
         System.out.println("Level Kesulitan : "+level_kesulitan);
     }
 
-    //method 2
-    @Override 
-    public void tampilInformasi()
+    //method 2 
+    void tampilInformasi()
     {
-        super.tampilInformasi();
+        System.out.println("ID Lomba :  "+idLomba);
+        System.out.println("Nama Lomba :  "+namaLomba);
+        System.out.println("Bidang :  "+bidang);
+        System.out.println("Tanggal :  "+getTanggal());
         System.out.println("Level Kesulitan : "+level_kesulitan);
         System.out.println("Materi Ujian : "+materi_ujian);
+        System.out.println("Pendaftar :"+getJmlhDaftar());
+        System.out.println("Kuota : "+(getKuota()-getJmlhDaftar()));
     }
 }

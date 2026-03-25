@@ -1,13 +1,13 @@
  class Lomba
 {
-    private String idLomba;
-    private String namaLomba;
-    private String bidang;
+    protected String idLomba;
+    protected String namaLomba;
+    protected String bidang;
     private String tanggalLomba;
     private int kuota ;
     private int jumlahPendaftar;
 
-    public Lomba(String idLomba, String namalomba, String bidang, String tgllomba, int kuota)
+    Lomba(String idLomba, String namalomba, String bidang, String tgllomba, int kuota)
     {
         this.idLomba = idLomba;
         this.namaLomba = namalomba;
@@ -18,21 +18,21 @@
     }
 
     // ini getter
-    public String getId() {return idLomba;}
-    public String getNamaLomba() {return namaLomba;}
-    public String getBidang() {return bidang ;}
-    public String getTanggal() {return tanggalLomba;}
-    public int getKuota() {return kuota;}
-    public int getJmlhDaftar() {return jumlahPendaftar;}
+    String getId() {return idLomba;}
+    String getNamaLomba() {return namaLomba;}
+    String getBidang() {return bidang ;}
+    String getTanggal() {return tanggalLomba;}
+    int getKuota() {return kuota;}
+    int getJmlhDaftar() {return jumlahPendaftar;}
 
     // method 1
-    public boolean cekKuota()
+    boolean cekKuota()
     {
         return jumlahPendaftar < kuota;
     }
 
     // method 2
-    public void tmbhPendaftar()
+    void tmbhPendaftar()
     {
         if (cekKuota())
         {
@@ -46,7 +46,7 @@
     }
 
     // method 3
-    public void kurangiDaftar()
+    void kurangiDaftar()
     {
         if (jumlahPendaftar > 0)
         {
@@ -60,7 +60,7 @@
     }
     
     //method 4
-    public void tampilInformasi()
+    void tampilInformasi()
     {
         System.out.println("ID Lomba :  "+idLomba);
         System.out.println("Nama Lomba :  "+namaLomba);

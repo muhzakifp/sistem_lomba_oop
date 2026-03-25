@@ -8,7 +8,7 @@ class Daftar
     private String tanggalDaftar;
     private String status;
 
-    public Daftar (Mahasiswa mhs, Lomba lmb, String iddaftar, String tgldaftar)
+    Daftar(Mahasiswa mhs, Lomba lmb, String iddaftar, String tgldaftar)
     {
         this.mhs = mhs;
         this.lmb = lmb;
@@ -18,14 +18,14 @@ class Daftar
     }
 
     // ini getter
-    public String getiddaftar() {return idPendaftar;}
-    public String gettgldaftar() {return tanggalDaftar;}
-    public String getstatus() {return status;}
-    public Mahasiswa getclassMahasiswa() {return mhs;}
-    public Lomba getclassLomba() {return lmb;}
+    String getiddaftar() {return idPendaftar;}
+    String gettgldaftar() {return tanggalDaftar;}
+    String getstatus() {return status;}
+    Mahasiswa getclassMahasiswa() {return mhs;}
+    Lomba getclassLomba() {return lmb;}
 
     // method 1
-    public void prosesPendaftaran(Lomba l)
+    void prosesPendaftaran(Lomba l)
     {
         System.out.println("Memproses pendaftaran untukk ID: "+idPendaftar);
         if(l.cekKuota())
@@ -41,7 +41,7 @@ class Daftar
     }
 
     // method 2
-    public static void syaratDaftar()
+    static void syaratDaftar()
     {
         System.out.println("1. Mahasiswa Aktif di PTN/PTS");
         System.out.println("2. Sehat jasmani dan rohani");
@@ -50,14 +50,14 @@ class Daftar
     }
 
     // method 3
-    public void updateStatus(String status_baru)
+    void updateStatus(String status_baru)
     {
         this.status = status_baru;
         System.out.println("Status peserta pendaftaran atas nama "+mhs.getNama()+" telah "+status);   
     }
 
     // method 4
-    public static boolean cekDaftar(ArrayList<Daftar> cek,Lomba lmb, Mahasiswa mhs)
+    static boolean cekDaftar(ArrayList<Daftar> cek,Lomba lmb, Mahasiswa mhs)
     {
         for(Daftar d :  cek)
         {
@@ -70,7 +70,7 @@ class Daftar
     }
 
     // method 5
-    public void tampilBuktiDaftar()
+    void tampilBuktiDaftar()
     {
         System.out.println("\n---> BUKTI PENDAFTARAN "+mhs.getNama().toUpperCase()+" <---");
         System.out.println("ID pendaftar :"+idPendaftar);

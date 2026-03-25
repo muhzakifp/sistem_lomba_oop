@@ -76,20 +76,21 @@ public class Main
         System.out.print("Semester : ");
         smstr = input.nextInt();
         input.nextLine();
-        if (smstr<=0 || smstr>=5 )
+        if (smstr<=0 || smstr>4 )
         {
             System.out.println("--- Semester tidak valid ! ---");
             System.out.println("--- Pendaftar wajib Mahasiswa Semester 1-4 ---");
             return;
         }
         System.out.print("Kampus Asal : ");
-        kampus = input.nextLine().trim();
+        kampus = input.nextLine();
         System.out.print("Nomor HP aktif : ");
         nohp = input.nextLine();
 
         Mahasiswa mhs = new Mahasiswa(nim, nama, prodi, smstr, kampus, nohp); // objek mhs dibuat 
         DaftarMahasiswa.add(mhs); // data objek akan tersimpan di ArrayList DaftarMahasiswa
-        System.out.println("Mahasisswa berhasil ditambahkan ! ");
+        mhs.getDataMahasiwa(); // menampilkan data mahasiswa
+        System.out.println("                 Mahasiswa berhasil ditambahkan !              ");
     }
     
     // FUNCTION DAFTAR LOMBA
@@ -104,8 +105,9 @@ public class Main
             System.out.println("Belum ada data Mahasiswa ! ");
             return;
         }
+
         System.out.println("\n---> DAFTAR LOMBA TERSEDIA <---"); 
-        System.out.println("[--LOMBA UMUM--]");
+        System.out.println("---LOMBA UMUM---");
         for (Lomba l : DaftarLomba) 
         {
             if(!(l instanceof LombaAkademik))
@@ -115,7 +117,7 @@ public class Main
                 no++;
             }
         }
-        System.out.println("[--LOMBA AKADEMIK--]");
+        System.out.println("---LOMBA AKADEMIK---");
         for(Lomba l : DaftarLomba)
         {
             if(l instanceof LombaAkademik)
@@ -126,7 +128,8 @@ public class Main
             }
         }
 
-        System.out.print("Pilih index lomba : ");
+        // input untuk pemilihan list lomba 
+        System.out.print("Pilih index lomba  : ");
         int pil_lmb =  input.nextInt();
         input.nextLine();
         
@@ -150,7 +153,7 @@ public class Main
                         urutan_mahasiswa.add(mhs);
                         nomhs++;
                     }
-                    System.out.print("Masukkan index peserta : ");
+                    System.out.print("Masukkan index calon peserta : ");
                     int index = input.nextInt();
                     input.nextLine();
 
