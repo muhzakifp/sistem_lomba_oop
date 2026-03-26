@@ -1,11 +1,7 @@
  class Lomba
 {
-    private String idLomba;
-    private String namaLomba;
-    private String bidang;
-    private String tanggalLomba;
-    private int kuota ;
-    private int jumlahPendaftar;
+    private String idLomba, namaLomba, bidang, tanggalLomba;
+    private int kuota, jumlahPendaftar;
 
     Lomba(String idLomba, String namalomba, String bidang, String tgllomba, int kuota)
     {
@@ -18,18 +14,12 @@
     }
 
     // ini getter
-    String getId() {return idLomba;}
-    String getNamaLomba() {return namaLomba;}
-    String getBidang() {return bidang ;}
-    String getTanggal() {return tanggalLomba;}
-    int getKuota() {return kuota;}
-    int getJmlhDaftar() {return jumlahPendaftar;}
+    String getId() {return idLomba;}  String getNamaLomba() {return namaLomba;}
+    String getBidang() {return bidang ;} String getTanggal() {return tanggalLomba;}
+    int getKuota() {return kuota;}  int getJmlhDaftar() {return jumlahPendaftar;}
 
     // method 1 untuk mengatur kondisi jumlah pendaftar dan kuota 
-    boolean cekKuota()
-    {
-        return jumlahPendaftar < kuota;
-    }
+    boolean cekKuota() { return jumlahPendaftar < kuota;}
 
     // method 2 untuk menambah jumlah pendaftaran lomba
     void tmbhPendaftar()
@@ -39,10 +29,8 @@
             jumlahPendaftar++; 
             System.out.println("Pendaftaran lomba "+namaLomba+" berhasil, sisa kuota "+(kuota-jumlahPendaftar)+"!");
         }
-        else // jika jumlah pendaftar lebih besar daripada kuota maka kondisi akan ke else
-        {
-            System.out.println("Maaf, kuota lomba "+namaLomba+" udah penuh ! ");
-        }
+        // jika jumlah pendaftar lebih besar daripada kuota maka kondisi akan ke else
+        else { System.out.println("Maaf, kuota lomba "+namaLomba+" udah penuh ! ");}
     }
 
     // method 3 untuk mengurangi jumlah pendaftar
@@ -53,10 +41,7 @@
             jumlahPendaftar--;
             System.out.println("Pendaftar : "+jumlahPendaftar);
         }
-        else
-        {
-            System.out.println("Pendaftar masih kosong ! ");
-        }
+        else { System.out.println("Pendaftar masih kosong ! ");}
     }
     
     //method 4 untuk menampilkan informasi pendaftar

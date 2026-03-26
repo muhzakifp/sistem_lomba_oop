@@ -1,11 +1,7 @@
 class Mahasiswa 
 {
-    private String nim;
-    private String nama;
-    private String prodi;   // PENGGUNAAN KONSEP ENKAPSULASI (atribut di kasih private)
+    private String nim, nama, prodi, kampus, nohp;   // PENGGUNAAN KONSEP ENKAPSULASI (atribut di kasih private)
     private int semester;
-    private String kampus;
-    private String nohp;
 
     Mahasiswa(String nim, String nama, String prodi, int smstr, String kampus, String nohp)
     {
@@ -17,14 +13,12 @@ class Mahasiswa
         this.nohp = nohp;
     }
     // ini getter
-    String getNim(){return nim;}
-    String getNama(){return nama;}
-    String getProdi(){return prodi;}   //  METHOD GETTER SEBAGAI JEMBATAN AKSES UNTUK MENAMPILKAN HASIL ATRIBUT YANG DI ENKAPSULASI
-    int getSmstr(){return semester;}  
-    String getKampusAsal(){return kampus;}
-    String getNohp(){return nohp;}
+    //  METHOD GETTER SEBAGAI JEMBATAN AKSES UNTUK MENAMPILKAN HASIL ATRIBUT YANG DI ENKAPSULASI
+    String getNim(){return nim;}  String getNama(){return nama;}
+    String getProdi(){return prodi;}  int getSmstr(){return semester;}  
+    String getKampusAsal(){return kampus;}  String getNohp(){return nohp;}
 
-    // ini method 1 untuk menampikan seluruh data mahasiswa yang telah dibuat
+    // ini method 1 untuk menampikan seluruh data mahasiswa yang telah dibuata
     void getDataMahasiwa()
     {
         System.out.println("\n-----------------------------------------------------------------");
@@ -37,6 +31,5 @@ class Mahasiswa
         System.out.println("No HP : "+nohp);
         System.out.println("-----------------------------------------------------------------");
     }
-
 }
 

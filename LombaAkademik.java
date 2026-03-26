@@ -1,7 +1,6 @@
 class LombaAkademik extends Lomba
 {
-    private String level_kesulitan;
-    private String materi_ujian;
+    private String level_kesulitan, materi_ujian;
 
     LombaAkademik(String idlomba, String namalomba, String bidang, String tglLomba,int kuota, String sulit,String materi)
     {

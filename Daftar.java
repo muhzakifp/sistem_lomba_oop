@@ -4,10 +4,8 @@ class Daftar
 {
     private Mahasiswa mhs;
     private Lomba lmb;
-    private String idPendaftar;
-    private String tanggalDaftar;
-    private String status;
-
+    private String idPendaftar, tanggalDaftar,status;
+ 
     Daftar(Mahasiswa mhs, Lomba lmb, String iddaftar, String tgldaftar)
     {
         this.mhs = mhs;
@@ -18,10 +16,8 @@ class Daftar
     }
 
     // ini getter
-    String getiddaftar() {return idPendaftar;}
-    String gettgldaftar() {return tanggalDaftar;}
-    String getstatus() {return status;}
-    Mahasiswa getclassMahasiswa() {return mhs;}
+    String getiddaftar() {return idPendaftar;}   String gettgldaftar(){return tanggalDaftar;}
+    String getstatus() {return status;}  Mahasiswa getclassMahasiswa() {return mhs;} 
     Lomba getclassLomba() {return lmb;}
 
     // method 1 untuk memperoses status pendaftaran
@@ -34,10 +30,7 @@ class Daftar
             status = "Belum disetujui";
             System.out.println("Pendaftaran berhasil diproses !");
         }
-        else
-        {
-            status = "Gagal - Kuota Penuh !";
-        }
+        else { status = "Gagal - Kuota Penuh !"; }
     }
 
     // method 2 untuk memberi informasi rules pendaftaran lomba
@@ -62,9 +55,7 @@ class Daftar
         for(Daftar d :  cek)
         {
             if(d.getclassMahasiswa().getNim().equals(mhs.getNim()) && d.getclassLomba().getId().equals(lmb.getId()))
-            {
-                return true;
-            }
+            { return true; }
         }
         return false;
     }
@@ -84,5 +75,4 @@ class Daftar
         System.out.println("Tanggal Lomba : "+lmb.getTanggal());        
         System.out.println("Status :"+status);
     }
-
 }

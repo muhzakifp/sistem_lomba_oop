@@ -29,19 +29,13 @@ public class Main
 
             // FITUR MENU
             System.out.println("\n---> SISTEM PENDAFTARAN LOMBA <---");
-            System.out.println("1.Tambah Mahasiswa");
-            System.out.println("2.Daftarkan Lomba");
-            System.out.println("3.Lihat Bukti Pendaftaran");
-            System.out.println("4.Update Status Pendaftaran");
-            System.out.println("5.Keluar");
-            System.out.print("Pilih menu : ");
-            opsi = input.nextInt();
-            input.nextLine();
+            System.out.println("1.Tambah Mahasiswa\n2.Daftarkan Lomba\n3.Lihat Bukti Pendaftaran\n4.Update Status Pendaftaran\n5.Keluar");
+            System.out.print("Pilih menu : "); opsi = input.nextInt(); input.nextLine();
 
             // PERCBANGAN SWITCH
             switch (opsi)
             {
-                case 1: TambahMahasiswa(); break;
+                case 1: TambahMahasiswa(); break; 
                 case 2: DaftarLomba(); break;
                 case 3: LihatBuktiDaftar(); break;
                 case 4: UpdateStatus(); break;
@@ -54,45 +48,29 @@ public class Main
     // FUNCTION TAMBAH MAHASISWA
     public static void TambahMahasiswa()
     {
-        String nim, nama, prodi,kampus,nohp;
+        String nim, nama, prodi,kampus,nohp; 
         int smstr;
 
-        System.out.println("\n---> DAFTARKAN MAHASISWA <---");
-        System.out.print("NIM : ");
-        nim = input.nextLine();
-        for (Mahasiswa mhs  : DaftarMahasiswa) // untuk mengecek isi objek mhs yang terdapat pada DaftarMahasiswa
-        {
-            if(mhs.getNim().equals(nim)) // untuk mengecek NIM 
-            {
-                System.out.println("NIM sudah adaa !"); 
-                return;
-            }
-        }
-        System.out.print("Nama : "); 
-        nama = input.nextLine();
-        System.out.print("Prodi : ");
-        prodi = input.nextLine();
-        System.out.print("Semester : ");
-        smstr = input.nextInt();
-        input.nextLine();
+        System.out.println("\n---> TAMBAH MAHASISWA <---");
+        System.out.print("NIM : "); nim = input.nextLine();
+
+        // untuk mengecek isi objek mhs yang terdapat pada DaftarMahasiswa
+        for (Mahasiswa mhs  : DaftarMahasiswa) { if(mhs.getNim().equals(nim)) {System.out.println("NIM sudah adaa !"); return;} }
+
+        System.out.print("Nama : "); nama = input.nextLine();
+        System.out.print("Prodi : "); prodi = input.nextLine();
+        System.out.print("Semester : "); smstr = input.nextInt(); input.nextLine();
         if (smstr<=0 || smstr>4 )
-        {
-            System.out.println("--- Semester tidak valid ! ---");
-            System.out.println("--- Pendaftar wajib Mahasiswa Semester 1-4 ---");
-            return;
-        }
-        System.out.print("Kampus Asal : ");
-        kampus = input.nextLine();
-        System.out.print("Nomor HP aktif : ");
-        nohp = input.nextLine();
+        { System.out.println("--- Semester tidak valid ! ---\n--- Pendaftar wajib Mahasiswa Semester 1-4 ---");return;}
+
+        System.out.print("Kampus Asal : "); kampus = input.nextLine();
+        System.out.print("Nomor HP aktif : "); nohp = input.nextLine();
 
         Mahasiswa mhs = new Mahasiswa(nim, nama, prodi, smstr, kampus, nohp); // objek mhs dibuat 
         DaftarMahasiswa.add(mhs); // data objek akan tersimpan di ArrayList DaftarMahasiswa
         mhs.getDataMahasiwa(); // menampilkan data mahasiswa
         System.out.println("                 Mahasiswa berhasil ditambahkan !              ");
-
-        System.out.println("\nTekan enter untuk melanjutkan ! ");
-        input.nextLine();
+        System.out.println("\nTekan enter untuk melanjutkan ! "); input.nextLine();
     }
     
     // FUNCTION DAFTAR LOMBA
@@ -100,16 +78,11 @@ public class Main
     {
         // ARRAYLIST UNTUK MENYIMPAN URUTAN LOMBA
         ArrayList<Lomba> urutan_lomba = new ArrayList<>();
+        // pengecekan kondisi jika ArrayList DaftarMahasiswa kosong
+        if(DaftarMahasiswa.isEmpty()) { System.out.println("Belum ada data Mahasiswa ! "); return; }
 
+        System.out.println("\n---> DAFTAR LOMBA TERSEDIA <---\n---LOMBA UMUM---"); 
         int no = 1;
-        if(DaftarMahasiswa.isEmpty()) // pengecekan kondisi jika ArrayList DaftarMahasiswa kosong 
-        {
-            System.out.println("Belum ada data Mahasiswa ! ");
-            return;
-        }
-
-        System.out.println("\n---> DAFTAR LOMBA TERSEDIA <---"); 
-        System.out.println("---LOMBA UMUM---");
         for (Lomba l : DaftarLomba) 
         {
               // menampilkan urutan informasi lomba umum
@@ -131,22 +104,17 @@ public class Main
                 no++;
             }
         }
-
         // input untuk pemilihan list lomba 
-        System.out.print("Pilih index lomba untuk melihat detail informasi  : ");
-        int pil_lmb =  input.nextInt();
-        input.nextLine();
+        System.out.print("Pilih informasi lomba (contoh :1)  : "); int pil_lmb =  input.nextInt(); input.nextLine();
         
         if (pil_lmb >=1 && pil_lmb <= urutan_lomba.size())
         {
-
             Lomba lomba_terpilih = urutan_lomba.get(pil_lmb-1);
           
             System.out.println("\n--- INFORMASI LOMBA "+lomba_terpilih.getNamaLomba().toUpperCase() +"---");
             lomba_terpilih.tampilInformasi();
             
-            System.out.print("Apakah yakin ingin mendaftar?  (Y/N) : ");
-            String konf = input.nextLine();
+            System.out.print("Apakah yakin ingin mendaftar?  (Y/N) : "); String konf = input.nextLine();
             if (konf.equalsIgnoreCase("y"))
                 {
                     // cek kondisi kuota lomba
@@ -155,89 +123,53 @@ public class Main
                         lomba_terpilih.tmbhPendaftar();
                         return;
                     }
-                   
-                    // list untuk menyimpan urutan index setiap mahasiswa
-                    ArrayList<Mahasiswa> urutan_mahasiswa = new ArrayList<>();
-        
-                    int nomhs = 1;
-                    for (Mahasiswa mhs : DaftarMahasiswa)
+                    else
                     {
-                        // menampilkan informasi data maahasiswa 
-                        System.out.println((nomhs)+"."+mhs.getNim()+"|"+mhs.getNama()+"|"+mhs.getProdi()+"|"+mhs.getSmstr());
-                        urutan_mahasiswa.add(mhs);
-                        nomhs++;
-                    }
+                        // input nim mahasiswa untuk pendaftaran lomba
+                        System.out.print("Masukkan NIM Mahasiswa  : ");
+                        String nim =  input.nextLine();
 
-                    // input pemilihan mahasiswa untuk pendaftaran lomba
-                    System.out.print("Masukkan index calon peserta : ");
-                    int index = input.nextInt();
-                    input.nextLine();
-
-                    if (index >=1 && index <= urutan_mahasiswa.size())
-                    {
-
-                        Mahasiswa mhs_terpilih = urutan_mahasiswa.get(index-1);
-
-                        // cek kondisi supaya tidak terjadi duplikat pendaftaran pada nama lomba yang sama
-                        if(Daftar.cekDaftar(DaftarRegistrasi, lomba_terpilih,mhs_terpilih))
+                        Mahasiswa mahasiswa = null;
+                        for (Mahasiswa mhs : DaftarMahasiswa)
                         {
-                            System.out.println("Pendaftaran Gagal - Anda sudah mendaftar lomba yang sama ! ");
-                            System.out.println("ID Daftar : "+" DF-"+mhs_terpilih.getNim()+"-LMB");
-                            System.out.println("Nama : "+mhs_terpilih.getNama());
-                            System.out.println("Ikut lomba : "+lomba_terpilih.getNamaLomba());
-                            return;
+                            if(mhs.getNim().equals(nim)) // cek nim mahasiswa apakah sudah terdaftar
+                            {
+                                mahasiswa = mhs;
+                                break;
+                            }
                         }
-                        else
+                        if (mahasiswa != null)
                         {
-                            System.out.println("MEMILIH MAHASISWA BERNAMA "+mhs_terpilih.getNama().toUpperCase());
-                            mhs_terpilih.getDataMahasiwa();
-                            System.out.print("Tanggal Daftar (DD-MM-YYY) : ");
-                            String tgl = input.nextLine();
-
-                            // data akan tersimpan di objek sementara
-                            Daftar sementara = new Daftar(mhs_terpilih, lomba_terpilih,mhs_terpilih.getNim(), tgl);
-                            DataSementara.add(sementara);
-                            sementara.updateStatus("diproses");
-                           
-                            if(lomba_terpilih instanceof LombaAkademik)
-                                {
-                                    System.out.println("---> INFORMASI LOMBA AKADEMIK <---");
-                                    ((LombaAkademik) lomba_terpilih).tampilMatUjian();
-                                }          
+                            if(Daftar.cekDaftar(DaftarRegistrasi, lomba_terpilih, mahasiswa))
+                            {
+                                System.out.println("Pendaftaran Gagal - Peserta atas nama "+mahasiswa.getNama()+" sudah terdaftar di lomba yang sama ! ");
+                                return;
+                            }
+                            else
+                            {
+                                System.out.print("Tanggal Daftar (TGL-BLN-THN) : ");
+                                String tgl = input.nextLine();
+                                Daftar sementara = new Daftar(mahasiswa, lomba_terpilih, mahasiswa.getNim(),tgl);
+                                DataSementara.add(sementara);
+                                sementara.updateStatus("diproses");
+                            }
                         }
-                    }
-                    else {System.out.println("Nomor urut tidak valid ! ");}
+                        else {System.out.println("NIM "+nim+" tidak terdaftar ! "); return;}             
+                    } 
                 }
-                    
-            else 
-                {
-                    System.out.println("Pendaftaran dibatalkan");
-                    return;
-                }
+            else {System.out.println("Pendaftaran lomba di batalkan"); return;}
         }
-        else
-        {
-            System.out.println("Pilihan tidak valid !");
-        }
-
-        System.out.println("\nTekan enter untuk melanjutkan ! ");
-        input.nextLine();
-                           
+        else {System.out.println("Pemilihan nomot urut lomba tidak valid ! "); return;}    
     }
-
+                   
     public static void LihatBuktiDaftar()
     {
         int opsicek;
         do
         {
             System.out.println("\n--->MENU BUKTI PENDAFTARAN LOMBA <---");
-            System.out.println("1. Cek calon peserta lomba");
-            System.out.println("2. Cek peserta lomba resmi terdaftar ");
-            System.out.println("3. Keluar dari menu bukti pendaftaran");
-            System.out.print("Pilih opsi : ");
-            opsicek = input.nextInt();
-            input.nextLine();
-
+            System.out.println("1.Cek calon peserta lomba\n2.Cek peserta lomba resmi terdaftar\n3.Keluar dari menu bukti pendaftaran");
+            System.out.print("Pilih opsi : "); opsicek = input.nextInt(); input.nextLine();
             switch (opsicek)
             {
                 case 1 : CekCalonPeserta(); break;
@@ -250,15 +182,11 @@ public class Main
 
     public static void CekCalonPeserta()
     {
-        if(DataSementara.isEmpty())
-        {
-            System.out.println("Belum ada data yang diproses ! ");
-            return;
-        }
+        if(DataSementara.isEmpty()) {System.out.println("Belum ada data yang diproses ! "); return;}
+
         else
         {
             ArrayList<Daftar> calonPeserta = new ArrayList<>();
-
             System.out.println("\n----> DATA CALON PESERTA LOMBA <----");
             int nodftr = 1;
             for (Daftar d : DataSementara)
@@ -268,32 +196,20 @@ public class Main
                 nodftr++;
             }
             System.out.print("Masukan nomor urut calon pendaftar (contoh : 1) : ");
-            int index_bukti_dftr = input.nextInt();
-            input.nextLine();
+            int index_bukti_dftr = input.nextInt(); input.nextLine();
             if (index_bukti_dftr >=1 && index_bukti_dftr <= calonPeserta.size())
             {
                 Daftar pendaftar_terpilih = calonPeserta.get(index_bukti_dftr-1);
                 pendaftar_terpilih.tampilBuktiDaftar();
             }
-            else
-            {
-                System.out.println("Pemilihan bukti pendaftaran sementara tidak valid !");
-                return;
-            }
-
+            else{ System.out.println("Pemilihan bukti pendaftaran sementara tidak valid !");return;}
         }
-
-        System.out.println("\nTekan enter untuk melanjutkan ! ");
-        input.nextLine();
+        System.out.println("\nTekan enter untuk melanjutkan ! "); input.nextLine();
     }
 
     public static void CekPesertaLomba()
     {
-        if (DaftarRegistrasi.isEmpty())
-        {
-            System.out.println("Bukti pendaftaran peserta lomba belum ada !");
-            return;
-        }
+        if (DaftarRegistrasi.isEmpty()) { System.out.println("Bukti pendaftaran peserta lomba belum ada !");return;}
         else
         {
             ArrayList<Daftar> peserta_resmi = new ArrayList<>();
@@ -307,33 +223,24 @@ public class Main
             }
     
             System.out.print("Masukan nomor urut pendaftar (contoh : 1): ");
-            int index_bukti_dftr = input.nextInt();
-            input.nextLine();
+            int index_bukti_dftr = input.nextInt();input.nextLine();
+
             if (index_bukti_dftr >=1 && index_bukti_dftr <= peserta_resmi.size())
             {
                 Daftar pendaftar_terpilih = peserta_resmi.get(index_bukti_dftr-1);
                 pendaftar_terpilih.tampilBuktiDaftar();
             }
-            else
-            {
-                System.out.println("Pemilihan bukti pendaftaran tidak valid !");
-                return;
-            }
+            else {System.out.println("Pemilihan bukti pendaftaran tidak valid !");return;}
         }
-
-        System.out.println("\nTekan enter untuk melanjutkan ! ");
-        input.nextLine();
-
+        System.out.println("\nTekan enter untuk melanjutkan ! "); input.nextLine();
     }
         
     public static void UpdateStatus()
     {
         System.out.println("\n---> UPDATE STATUS PENDAFTARAN <---");
-        if(DataSementara.isEmpty())
-        {
-            System.out.println("Belum ada pendaftaran");
-            return;
-        }
+
+        if(DataSementara.isEmpty()) {System.out.println("Belum ada pendaftaran");return;}
+
         else
         {
             ArrayList<Daftar> urutanDaftar = new ArrayList<>();
@@ -344,9 +251,8 @@ public class Main
                 urutanDaftar.add(d);
                 nodftr++;
             }
-            System.out.print("Masukan nomor urut pendaftar (contoh : 1) : ");
-            int index_pendaftar = input.nextInt();
-            input.nextLine();
+            System.out.print("Masukan nomor urut pendaftar (contoh : 1) : "); 
+            int index_pendaftar = input.nextInt(); input.nextLine();
 
             if (index_pendaftar >=1 && index_pendaftar <= urutanDaftar.size())
             {
@@ -355,8 +261,7 @@ public class Main
                 System.out.println("Anda memilih peserta pendaftaran atas nama "+pendaftar_terpilih.getclassMahasiswa().getNama());
                 pendaftar_terpilih.tampilBuktiDaftar();
 
-                System.out.print("Status baru (Disetujui/Ditolak) : ");
-                String statusBaru = input.nextLine();
+                System.out.print("Status baru (Disetujui/Ditolak) : "); String statusBaru = input.nextLine();
                 pendaftar_terpilih.updateStatus(statusBaru);
                 if (statusBaru.equalsIgnoreCase("ditolak"))
                 {
@@ -369,35 +274,20 @@ public class Main
                             DataSementara.remove(pendaftar_terpilih);
                             System.out.println("ID pendaftar "+pendaftar_terpilih.getiddaftar()+" atas nama "+pendaftar_terpilih.getclassMahasiswa().getNama()+" telah di "+statusBaru+" !");
                         }
-                    else
-                    {
-                        System.out.println("Penolakan dibatalkan");
-                        return;
-                    }
+                    else { System.out.println("Penolakan dibatalkan");return;}
                 }
                 else if (statusBaru.equalsIgnoreCase("disetujui"))
                 {
                     Lomba lmb = pendaftar_terpilih.getclassLomba();
-
                     lmb.tmbhPendaftar();
                     DataSementara.remove(pendaftar_terpilih);
                     DaftarRegistrasi.add(pendaftar_terpilih);
                     System.out.println("ID pendaftar "+pendaftar_terpilih.getiddaftar()+" atas nama "+pendaftar_terpilih.getclassMahasiswa().getNama()+" telah di "+statusBaru+" !");
                 }
-                else 
-                {
-                    System.out.println("Update Status tidak valid ! ");
-                    return;
-                }
+                else { System.out.println("Update Status tidak valid ! "); return;}
             }
-            else
-            {
-                System.out.println("nomor urut pendaftar tidak valid !");
-                return;
-            }    
-        }
-        System.out.println("\nTekan enter untuk melanjutkan ! ");
-        input.nextLine();
+            else { System.out.println("nomor urut pendaftar tidak valid !"); return; }    
+        } 
+        System.out.println("\nTekan enter untuk melanjutkan ! "); input.nextLine();
     }
-
 }
