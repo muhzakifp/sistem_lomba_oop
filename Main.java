@@ -4,20 +4,19 @@ import java.util.Scanner;
 public class Main
 {
     // ARRAY LIST SETIAP CLASS
-    static ArrayList<Mahasiswa> DaftarMahasiswa = new ArrayList<>();
-    static ArrayList<Lomba> DaftarLomba = new ArrayList<>();
-    static ArrayList<Daftar> DaftarRegistrasi = new ArrayList<>();
+    static ArrayList<Mahasiswa> DaftarMahasiswa = new ArrayList<>(); //untuk menampung setiap data mahasiswa
+    static ArrayList<Lomba> DaftarLomba = new ArrayList<>(); // untuk menampung setiap data perlombaan yang tersedia
+    static ArrayList<Daftar> DaftarRegistrasi = new ArrayList<>(); // untuk memnampung data mahasiswa yang resmi jadi peserta lomba
+    static ArrayList<Daftar> DataSementara = new ArrayList<>(); // untuk menampung data sementara  mahasiswa untuk menunggu pemrosesesan update status
     static Scanner input = new Scanner(System.in);
 
     public static void main(String[] args)
     {
         // DATA PERLOMBAAN
-        DaftarLomba.add(new Lomba("LO2624001", "Lomba pengembangan Website", "Teknologi", "1-Januari-2026", 20));
-        DaftarLomba.add(new Lomba("LO2624002", "Lomba robotik", "Teknologi", "12-Januari-2026", 20));
-        DaftarLomba.add(new Lomba("LO2624003", "catur", "Olahraga", "11-Januari-2026", 10));
+        DaftarLomba.add(new Lomba("LO2624001", "pengembangan Website", "Teknologi", "1-Januari-2026", 20));
+        DaftarLomba.add(new Lomba("LO2624002", "robotik", "Teknologi", "12-Januari-2026", 20));
         DaftarLomba.add(new Lomba("LO2624004", "Futsal", "Olahraga", "15-Februari-2026", 15));
-        DaftarLomba.add(new Lomba("LO2624005", "Desain Poster", "Seni dan Kreativitas", "2-Februari-2026", 5));
-        DaftarLomba.add(new Lomba("LO2624006", "Hafidz Qur'an", "Keagamaan", "5-Februari-2026", 5));
+        DaftarLomba.add(new Lomba("LO2624005", "Desain Poster", "Seni dan Kreativitas", "2-Februari-2026", 1));
         DaftarLomba.add(new Lomba("LO2624007", "Karya Ilmiah", "Penelitian", "10-Januari-2026", 5));
         DaftarLomba.add(new LombaAkademik("LO2624008", "Olimpiade Matematika", "Akademik", "12-januari-2026", 5, "Medium", "Aljabar dan Kalkulus"));
 
@@ -34,7 +33,8 @@ public class Main
             System.out.println("2.Daftarkan Lomba");
             System.out.println("3.Lihat Bukti Pendaftaran");
             System.out.println("4.Update Status Pendaftaran");
-            System.out.println("5. Keluar");
+            System.out.println("5.Lihat Peserta lomba");
+            System.out.println("6.Keluar");
             System.out.print("Pilih menu : ");
             opsi = input.nextInt();
             input.nextLine();
@@ -46,10 +46,11 @@ public class Main
                 case 2: DaftarLomba(); break;
                 case 3: LihatBuktiDaftar(); break;
                 case 4: UpdateStatus(); break;
-                case 5: System.out.println("Anda telah keluar"); break;
+                case 5: LihatPesertaLomba(); break;
+                case 6: System.out.println("Anda telah keluar"); break;
                 default : System.out.println("Pilihan tidak valid !"); 
             }
-        }while (opsi !=5);
+        }while (opsi !=6);
     }
 
     // FUNCTION TAMBAH MAHASISWA
@@ -96,11 +97,11 @@ public class Main
     // FUNCTION DAFTAR LOMBA
     public static void DaftarLomba()
     {
-        // ARRAYLIST UNTUK MENAMPILKAN URUTAN LOMBA
+        // ARRAYLIST UNTUK MENYIMPAN URUTAN LOMBA
         ArrayList<Lomba> urutan_lomba = new ArrayList<>();
 
         int no = 1;
-        if(DaftarMahasiswa.isEmpty()) // pengcekan kondisi jika ArrayList DaftarMahasiswa kosong 
+        if(DaftarMahasiswa.isEmpty()) // pengecekan kondisi jika ArrayList DaftarMahasiswa kosong 
         {
             System.out.println("Belum ada data Mahasiswa ! ");
             return;
@@ -110,6 +111,7 @@ public class Main
         System.out.println("---LOMBA UMUM---");
         for (Lomba l : DaftarLomba) 
         {
+              // menampilkan urutan informasi lomba umum
             if(!(l instanceof LombaAkademik))
             {
                 System.out.println((no)+"."+l.getId()+"|"+l.getNamaLomba()+"|"+l.getBidang());
@@ -120,6 +122,7 @@ public class Main
         System.out.println("---LOMBA AKADEMIK---");
         for(Lomba l : DaftarLomba)
         {
+            // menampilkan urutan informasi lomba akademik
             if(l instanceof LombaAkademik)
             {
                 System.out.println((no)+"."+l.getId()+"|"+l.getNamaLomba()+"|"+l.getBidang());
@@ -129,36 +132,49 @@ public class Main
         }
 
         // input untuk pemilihan list lomba 
-        System.out.print("Pilih index lomba  : ");
+        System.out.print("Pilih index lomba untuk melihat detail informasi  : ");
         int pil_lmb =  input.nextInt();
         input.nextLine();
         
         if (pil_lmb >=1 && pil_lmb <= urutan_lomba.size())
         {
-            Lomba lomba_terpilih = urutan_lomba.get(pil_lmb-1);
 
-            System.out.println("\n--- ANDA MEMILIH LOMBA "+lomba_terpilih.getNamaLomba().toUpperCase() +"---");
+            Lomba lomba_terpilih = urutan_lomba.get(pil_lmb-1);
+          
+            System.out.println("\n--- INFORMASI LOMBA "+lomba_terpilih.getNamaLomba().toUpperCase() +"---");
             lomba_terpilih.tampilInformasi();
             
-            System.out.print("Apakah yakin ingin mendaftar? (Y/N) : ");
+            System.out.print("Apakah yakin ingin mendaftar?  (Y/N) : ");
             String konf = input.nextLine();
             if (konf.equalsIgnoreCase("y"))
                 {
+                    // cek kondisi kuota lomba
+                    if (!(lomba_terpilih.cekKuota()))
+                    {
+                        lomba_terpilih.tmbhPendaftar();
+                        return;
+                    }
+                   
+                    // list untuk menyimpan urutan index setiap mahasiswa
                     ArrayList<Mahasiswa> urutan_mahasiswa = new ArrayList<>();
-
+        
                     int nomhs = 1;
                     for (Mahasiswa mhs : DaftarMahasiswa)
                     {
+                        // menampilkan informasi data maahasiswa 
                         System.out.println((nomhs)+"."+mhs.getNim()+"|"+mhs.getNama()+"|"+mhs.getProdi()+"|"+mhs.getSmstr());
                         urutan_mahasiswa.add(mhs);
                         nomhs++;
                     }
+
+                    // input pemilihan mahasiswa untuk pendaftaran lomba
                     System.out.print("Masukkan index calon peserta : ");
                     int index = input.nextInt();
                     input.nextLine();
 
                     if (index >=1 && index <= urutan_mahasiswa.size())
                     {
+
                         Mahasiswa mhs_terpilih = urutan_mahasiswa.get(index-1);
 
                         // cek kondisi supaya tidak terjadi duplikat pendaftaran pada nama lomba yang sama
@@ -170,84 +186,152 @@ public class Main
                             System.out.println("Ikut lomba : "+lomba_terpilih.getNamaLomba());
                             return;
                         }
+                        else
+                        {
+                            System.out.println("MEMILIH MAHASISWA BERNAMA "+mhs_terpilih.getNama().toUpperCase());
+                            mhs_terpilih.getDataMahasiwa();
+                            System.out.print("Tanggal Daftar (DD-MM-YYY) : ");
+                            String tgl = input.nextLine();
 
-                        System.out.println("MEMILIH MAHASISWA BERNAMA "+mhs_terpilih.getNama().toUpperCase());
-                        mhs_terpilih.getDataMahasiwa();
-                        System.out.print("Tanggal Daftar (DD-MM-YYY) : ");
-                        String tgl = input.nextLine();
-                        
-                        Daftar daftar = new Daftar(mhs_terpilih,lomba_terpilih,mhs_terpilih.getNim(),tgl);
-                        daftar.prosesPendaftaran(lomba_terpilih); 
-                        DaftarRegistrasi.add(daftar);
-                        
-                        if(lomba_terpilih instanceof LombaAkademik)
-                            {
-                                System.out.println("---> INFORMASI LOMBA AKADEMIK <---");
-                                ((LombaAkademik) lomba_terpilih).tampilMatUjian();
-                            }          
+                            // data akan tersimpan di objek sementara
+                            Daftar sementara = new Daftar(mhs_terpilih, lomba_terpilih,mhs_terpilih.getNim(), tgl);
+                            DataSementara.add(sementara);
+                            sementara.updateStatus("diproses");
+                           
+                            /*Daftar daftar = new Daftar(mhs_terpilih,lomba_terpilih,mhs_terpilih.getNim(),tgl);
+                            daftar.prosesPendaftaran(lomba_terpilih); 
+                            DaftarRegistrasi.add(daftar);*/
+                            if(lomba_terpilih instanceof LombaAkademik)
+                                {
+                                    System.out.println("---> INFORMASI LOMBA AKADEMIK <---");
+                                    ((LombaAkademik) lomba_terpilih).tampilMatUjian();
+                                }          
+                        }
                     }
                     else {System.out.println("Nomor urut tidak valid ! ");}
-                }    
+                }
+                    
             else 
                 {
                     System.out.println("Pendaftaran dibatalkan");
                     return;
                 }
         }
-                    
         else
         {
             System.out.println("Pilihan tidak valid !");
         }
+                           
     }
 
     public static void LihatBuktiDaftar()
     {
-        System.out.println("\n---> BUKTI PENDAFTARAN LOMBA <---");
-        if(DaftarRegistrasi.isEmpty())
+        int opsicek;
+        do
         {
-            System.out.println("Belum ada Pendaftaran");
+            System.out.println("\n--->MENU BUKTI PENDAFTARAN LOMBA <---");
+            System.out.println("1. Cek calon peserta lomba");
+            System.out.println("2. Cek peserta lomba resmi terdaftar ");
+            System.out.println("3. Keluar dari menu bukti pendaftaran");
+            System.out.print("Pilih opsi : ");
+            opsicek = input.nextInt();
+            input.nextLine();
+
+            switch (opsicek)
+            {
+                case 1 : CekCalonPeserta(); break;
+                case 2 : CekPesertaResmi(); break;
+                case 3 : break;
+                default: System.out.println("Pilihan tidak valid ! ");
+            }
+        }while(opsicek != 3);
+    }
+
+    public static void CekCalonPeserta()
+    {
+        if(DataSementara.isEmpty())
+        {
+            System.out.println("Data calon peserta belum ada ! ");
             return;
         }
         else
         {
-            ArrayList<Daftar> buktiDaftar = new ArrayList<>();
+            ArrayList<Daftar> calonPeserta = new ArrayList<>();
+
+            System.out.println("\n----> DATA CALON PESERTA LOMBA <----");
             int nodftr = 1;
-            for (Daftar d : DaftarRegistrasi)
+            for (Daftar d : DataSementara)
             {
                 System.out.println((nodftr)+"."+d.getiddaftar()+"|"+d.getclassMahasiswa().getNim()+"|"+d.getclassMahasiswa().getNama()+"|"+d.getclassLomba().getId()+"|"+d.getclassLomba().getNamaLomba()+"|"+d.getstatus());
-                buktiDaftar.add(d);
+                calonPeserta.add(d);
                 nodftr++;
             }
-            System.out.print("Masukan index pendaftar : ");
+            System.out.print("Masukan index calon pendaftar : ");
             int index_bukti_dftr = input.nextInt();
             input.nextLine();
-
-            if (index_bukti_dftr >=1 && index_bukti_dftr <= buktiDaftar.size())
+            if (index_bukti_dftr >=1 && index_bukti_dftr <= calonPeserta.size())
             {
-                Daftar pendaftar_terpilih = buktiDaftar.get(index_bukti_dftr-1);
+                Daftar pendaftar_terpilih = calonPeserta.get(index_bukti_dftr-1);
+                pendaftar_terpilih.tampilBuktiDaftar();
+            }
+            else
+            {
+                System.out.println("Pemilihan bukti pendaftaran sementara tidak valid !");
+                return;
+            }
+        }
+    }
+
+    public static void CekPesertaResmi()
+    {
+        if (DaftarRegistrasi.isEmpty())
+        {
+            System.out.println("Bukti pendaftaran peserta lomba belum ada !");
+            return;
+        }
+        else
+        {
+            ArrayList<Daftar> peserta_resmi = new ArrayList<>();
+            System.out.println("\n----> DATA PESERTA LOMBA <----");
+            int nodftrF = 1;
+            for (Daftar d : DaftarRegistrasi)
+            {
+                System.out.println((nodftrF)+"."+d.getiddaftar()+"|"+d.getclassMahasiswa().getNim()+"|"+d.getclassMahasiswa().getNama()+"|"+d.getclassLomba().getId()+"|"+d.getclassLomba().getNamaLomba()+"|"+d.getstatus());
+                peserta_resmi.add(d);
+                nodftrF++;
+            }
+    
+            System.out.print("Masukan index  pendaftar : ");
+            int index_bukti_dftr = input.nextInt();
+            input.nextLine();
+            if (index_bukti_dftr >=1 && index_bukti_dftr <= peserta_resmi.size())
+            {
+                Daftar pendaftar_terpilih = peserta_resmi.get(index_bukti_dftr-1);
                 pendaftar_terpilih.tampilBuktiDaftar();
             }
             else
             {
                 System.out.println("Pemilihan bukti pendaftaran tidak valid !");
+                return;
             }
         }
-    }
 
+    }
+        
     public static void UpdateStatus()
     {
         System.out.println("\n---> UPDATE STATUS PENDAFTARAN <---");
-        if(DaftarRegistrasi.isEmpty())
+        if(DataSementara.isEmpty())
         {
             System.out.println("Belum ada pendaftaran");
             return;
         }
         else
         {
+            System.out.println("----> DATA PENDAFTAR YANG SEDANG MENUNGGU PERSETUJUAN <----");
             ArrayList<Daftar> urutanDaftar = new ArrayList<>();
             int nodftr = 1;
-            for (Daftar d : DaftarRegistrasi)
+            for (Daftar d : DataSementara)
             {
                 System.out.println((nodftr)+"."+d.getiddaftar()+"|"+d.getclassMahasiswa().getNama()+"|"+d.getclassLomba().getNamaLomba());
                 urutanDaftar.add(d);
@@ -263,6 +347,7 @@ public class Main
 
                 System.out.println("Anda memilih peserta pendaftaran atas nama "+pendaftar_terpilih.getclassMahasiswa().getNama());
                 pendaftar_terpilih.tampilBuktiDaftar();
+
                 System.out.print("Status baru (Disetujui/Ditolak) : ");
                 String statusBaru = input.nextLine();
                 pendaftar_terpilih.updateStatus(statusBaru);
@@ -274,7 +359,7 @@ public class Main
                         {
                             Lomba lmb = pendaftar_terpilih.getclassLomba();
                             lmb.kurangiDaftar();
-                            DaftarRegistrasi.remove(pendaftar_terpilih);
+                            DataSementara.remove(pendaftar_terpilih);
                             System.out.println("ID pendaftar "+pendaftar_terpilih.getiddaftar()+" atas nama "+pendaftar_terpilih.getclassMahasiswa().getNama()+" telah di "+statusBaru+" !");
                         }
                     else
@@ -283,9 +368,19 @@ public class Main
                         return;
                     }
                 }
-                else
+                else if (statusBaru.equalsIgnoreCase("disetujui"))
                 {
+                    Lomba lmb = pendaftar_terpilih.getclassLomba();
+
+                    lmb.tmbhPendaftar();
+                    DataSementara.remove(pendaftar_terpilih);
+                    DaftarRegistrasi.add(pendaftar_terpilih);
                     System.out.println("ID pendaftar "+pendaftar_terpilih.getiddaftar()+" atas nama "+pendaftar_terpilih.getclassMahasiswa().getNama()+" telah di "+statusBaru+" !");
+                }
+                else 
+                {
+                    System.out.println("Update Status tidak valid ! ");
+                    return;
                 }
             }
             else
@@ -295,5 +390,31 @@ public class Main
             }
             
         }
+    }
+
+    public static void LihatPesertaLomba()
+    {
+        if(DaftarRegistrasi.isEmpty())
+        {
+            System.out.println("Peserta Lomba belum ada ");
+            return;
+        }
+        else
+        {
+            System.out.println("\n---> DATA PESERTA LOMBA <---");
+            ArrayList<Daftar> cekdaftar = new ArrayList<>(); 
+            int nopst = 1;
+            for(Daftar cekd : DaftarRegistrasi)
+            {
+                System.out.println((nopst)+" .ID Peserta : "+cekd.getiddaftar()+
+                " | Nama Peserta : "+cekd.getclassMahasiswa().getNama()+"| Asal Kampus : "+cekd.getclassMahasiswa().getKampusAsal()+
+                " | Prodi : "+cekd.getclassMahasiswa().getProdi()+" | ID Lomba : "+cekd.getclassLomba().getId()+
+                " | Lomba Diikuti : "+cekd.getclassLomba().getNamaLomba()+" | Bidang Lomba : "+cekd.getclassLomba().getBidang());
+                cekdaftar.add(cekd);
+                nopst++;
+            }
+
+        }
+
     }
 }

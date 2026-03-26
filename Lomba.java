@@ -1,8 +1,8 @@
  class Lomba
 {
-    protected String idLomba;
-    protected String namaLomba;
-    protected String bidang;
+    private String idLomba;
+    private String namaLomba;
+    private String bidang;
     private String tanggalLomba;
     private int kuota ;
     private int jumlahPendaftar;
@@ -25,23 +25,23 @@
     int getKuota() {return kuota;}
     int getJmlhDaftar() {return jumlahPendaftar;}
 
-    // method 1
+    // method 1 untuk mengatur kondisi jumlah pendaftar dan kuota 
     boolean cekKuota()
     {
         return jumlahPendaftar < kuota;
     }
 
-    // method 2
+    // method 2 untuk menambah jumlah pendaftaran lomba
     void tmbhPendaftar()
     {
-        if (cekKuota())
+        if (cekKuota()) // untuk ngecek kondisi cek kuota, dan ini berhubungan dengan method 1
         {
-            jumlahPendaftar++;
-            System.out.println("Pendaftaran lomba berhasil, sisa kuota "+(kuota-jumlahPendaftar)+"!");
+            jumlahPendaftar++; 
+            System.out.println("Pendaftaran lomba "+namaLomba+" berhasil, sisa kuota "+(kuota-jumlahPendaftar)+"!");
         }
-        else
+        else // jika jumlah pendaftar lebih besar daripada kuota maka kondisi akan ke else
         {
-            System.out.println("Maaf, kuota sudah penuh ! ");
+            System.out.println("Maaf, kuota lomba "+namaLomba+" udah penuh ! ");
         }
     }
 

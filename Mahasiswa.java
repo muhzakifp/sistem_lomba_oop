@@ -24,7 +24,7 @@ class Mahasiswa
     String getKampusAsal(){return kampus;}
     String getNohp(){return nohp;}
 
-    // ini method 1
+    // ini method 1 untuk menampikan seluruh data mahasiswa yang telah dibuat
     void getDataMahasiwa()
     {
         System.out.println("\n-----------------------------------------------------------------");
@@ -37,4 +37,6 @@ class Mahasiswa
         System.out.println("No HP : "+nohp);
         System.out.println("-----------------------------------------------------------------");
     }
+
 }
+

@@ -53,7 +53,7 @@ class Daftar
     void updateStatus(String status_baru)
     {
         this.status = status_baru;
-        System.out.println("Status peserta pendaftaran atas nama "+mhs.getNama()+" telah "+status);   
+        System.out.println("Status peserta dengan ID pendaftaran "+idPendaftar+" atas nama "+mhs.getNama()+" telah "+status);   
     }
 
     // method 4
