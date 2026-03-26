@@ -24,7 +24,7 @@ class Daftar
     Mahasiswa getclassMahasiswa() {return mhs;}
     Lomba getclassLomba() {return lmb;}
 
-    // method 1
+    // method 1 untuk memperoses status pendaftaran
     void prosesPendaftaran(Lomba l)
     {
         System.out.println("Memproses pendaftaran untukk ID: "+idPendaftar);
@@ -40,7 +40,7 @@ class Daftar
         }
     }
 
-    // method 2
+    // method 2 untuk memberi informasi rules pendaftaran lomba
     static void syaratDaftar()
     {
         System.out.println("1. Mahasiswa Aktif di PTN/PTS");
@@ -49,14 +49,14 @@ class Daftar
         System.out.println("4. Dapat izin dari dosen wali");
     }
 
-    // method 3
+    // method 3 untuk mengupdate status
     void updateStatus(String status_baru)
     {
         this.status = status_baru;
         System.out.println("Status peserta dengan ID pendaftaran "+idPendaftar+" atas nama "+mhs.getNama()+" telah "+status);   
     }
 
-    // method 4
+    // method 4 untuk cekdaftar untuk menghindari pendaftaran nama lomba yang sama
     static boolean cekDaftar(ArrayList<Daftar> cek,Lomba lmb, Mahasiswa mhs)
     {
         for(Daftar d :  cek)
@@ -69,7 +69,7 @@ class Daftar
         return false;
     }
 
-    // method 5
+    // method 5 tampilkan informasi pendaftaran
     void tampilBuktiDaftar()
     {
         System.out.println("\n---> BUKTI PENDAFTARAN "+mhs.getNama().toUpperCase()+" <---");

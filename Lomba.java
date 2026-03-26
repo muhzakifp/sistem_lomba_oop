@@ -45,7 +45,7 @@
         }
     }
 
-    // method 3
+    // method 3 untuk mengurangi jumlah pendaftar
     void kurangiDaftar()
     {
         if (jumlahPendaftar > 0)
@@ -59,7 +59,7 @@
         }
     }
     
-    //method 4
+    //method 4 untuk menampilkan informasi pendaftar
     void tampilInformasi()
     {
         System.out.println("ID Lomba :  "+idLomba);

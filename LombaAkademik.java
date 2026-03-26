@@ -10,14 +10,14 @@ class LombaAkademik extends Lomba
         this.materi_ujian = materi;
     }
 
-    // method 1
+    // method 1 untuk menampilkan informasi lomba akademik
     void tampilMatUjian()
     {
         System.out.println("Materi Ujian : "+materi_ujian);
         System.out.println("Level Kesulitan : "+level_kesulitan);
     }
 
-    //method 2 
+    //method 2  untuk menampilkan informasi lengkap lomba akademik
     void tampilInformasi()
     {
         System.out.println("ID Lomba :  "+getId());
