@@ -23,7 +23,6 @@ public class Main
         do
         {
             // SYARAT PENDAFTARAN
-            System.out.println("\n! Syarat Pendaftaran !");
             Daftar.syaratDaftar();
 
             // FITUR MENU
@@ -53,7 +52,7 @@ public class Main
         System.out.println("\n---> TAMBAH MAHASISWA <---");
         System.out.print("NIM : "); nim = input.nextLine();
 
-        // untuk mengecek isi objek mhs yang terdapat pada DaftarMahasiswa
+        // untuk mengecek isi objek mhs yang terdapat pada DaftarMahasiswa sekaligus mengecek nim untuk mengindari duplikat 
         for (Mahasiswa mhs  : DaftarMahasiswa) { if(mhs.getNim().equals(nim)) {System.out.println("NIM sudah adaa !"); return;} }
 
         System.out.print("Nama : "); nama = input.nextLine();
@@ -92,7 +91,7 @@ public class Main
         {
             Lomba lomba_terpilih = DaftarLomba.get(pil_lmb-1);
           
-            System.out.println("\n--- INFORMASI LOMBA "+lomba_terpilih.getNamaLomba().toUpperCase() +"---");
+            System.out.println("\n--- INFORMASI LOMBA "+lomba_terpilih.getNamaLomba().toUpperCase() +" ---");
             lomba_terpilih.tampilInformasi();
             
             System.out.print("Apakah yakin ingin mendaftar?  (Y/N) : "); String konf = input.nextLine();
@@ -110,9 +109,9 @@ public class Main
                         for (Mahasiswa mhs : DaftarMahasiswa) // cek nim mahasiswa apakah sudah terdaftar
                         {if(mhs.getNim().equals(nim)) { mahasiswa = mhs; break; }}
 
-                        if (mahasiswa != null) 
+                        if (mahasiswa != null)
                         {
-                            if(Daftar.cekDaftar(DaftarPeserta, lomba_terpilih, mahasiswa))
+                            if(Daftar.cekDaftar(DaftarPeserta, lomba_terpilih, mahasiswa) || Daftar.cekDaftar(CalonPeserta, lomba_terpilih, mahasiswa))
                             {
                                 System.out.println("Pendaftaran Gagal - Peserta atas nama "+mahasiswa.getNama()+" sudah terdaftar di lomba yang sama ! ");
                                 return;
@@ -122,7 +121,7 @@ public class Main
                                 System.out.print("Tanggal Daftar (TGL-BLN-THN) : "); String tgl = input.nextLine();
                                 Daftar proses = new Daftar(mahasiswa, lomba_terpilih, mahasiswa.getNim(),tgl);
                                 CalonPeserta.add(proses);
-                                proses.updateStatus("diproses");  
+                                proses.prosesPendaftaran(lomba_terpilih);
                             }
                         }
                         else {System.out.println("NIM "+nim+" tidak terdaftar ! "); return;}        
@@ -154,8 +153,8 @@ public class Main
         {
             for(int i=0;i<CalonPeserta.size();i++) 
                 { 
-                    System.out.println((i+1)+". "+CalonPeserta.get(i).getiddaftar()+"-"+CalonPeserta.get(i).getclassMahasiswa().getNama()+
-                "-"+CalonPeserta.get(i).getclassLomba().getNamaLomba());
+                    System.out.println((i+1)+". "+CalonPeserta.get(i).getiddaftar()+" | "+CalonPeserta.get(i).getclassMahasiswa().getNama()+
+                " | "+CalonPeserta.get(i).getclassLomba().getNamaLomba());
                 }
             System.out.print("Masukan nomor urut pendaftar (contoh : 1) : "); 
             int index_pendaftar = input.nextInt(); input.nextLine();

@@ -18,7 +18,7 @@ class Mahasiswa
     String getProdi(){return prodi;}  int getSmstr(){return semester;}  
     String getKampusAsal(){return kampus;}  String getNohp(){return nohp;}
 
-    // ini method 1 untuk menampikan seluruh data mahasiswa yang telah dibuata
+    // ini method 1 untuk menampikan seluruh data mahasiswa yang telah dibuat
     void getDataMahasiwa()
     {
         System.out.println("\n-----------------------------------------------------------------");

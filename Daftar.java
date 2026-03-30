@@ -36,10 +36,13 @@ class Daftar
     // method 2 untuk memberi informasi rules pendaftaran lomba
     static void syaratDaftar()
     {
+        System.out.println("\n------------------------------------");
+        System.out.println("! Syarat Pendaftaran !");
         System.out.println("1. Mahasiswa Aktif di PTN/PTS");
         System.out.println("2. Sehat jasmani dan rohani");
         System.out.println("3. Semester 1-4");
         System.out.println("4. Dapat izin dari dosen wali");
+        System.out.println("------------------------------------");
     }
 
     // method 3 untuk mengupdate status
