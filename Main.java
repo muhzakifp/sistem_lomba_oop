@@ -13,10 +13,9 @@ public class Main
     public static void main(String[] args)
     {
         // DATA PERLOMBAAN
-        DaftarLomba.add(new Lomba("LO2624001", "Ngoding", "Teknologi", "1-Januari-2026", 20));
-        DaftarLomba.add(new Lomba("LO2624002", "Futsal", "Olahraga", "15-Februari-2026", 15));
-        DaftarLomba.add(new Lomba("LO2624004", "Desain Poster", "Seni dan Kreativitas", "2-Februari-2026", 1));
-        DaftarLomba.add(new Lomba("LO2624005", "Karya Ilmiah", "Penelitian", "10-Januari-2026", 5));
+        DaftarLomba.add(new Lomba("LO2624001", "Web Development", "Teknologi", "1-Januari-2026",20));
+        DaftarLomba.add(new Lomba("LO2624004", "Desain Poster", "Seni dan Kreativitas", "2-Februari-2026", 5));
+        DaftarLomba.add(new Lomba("LO2624005", "Kewirausahaan", "Pereknomian", "10-Januari-2026", 5));
         DaftarLomba.add(new LombaAkademik("LO2624006", "Olimpiade Matematika", "Akademik", "12-januari-2026", 5, "Medium", "Aljabar dan Kalkulus"));
 
         int opsi;
@@ -80,9 +79,8 @@ public class Main
         System.out.println("\n---> DAFTAR LOMBA TERSEDIA <---"); 
         for (int i=0;i<DaftarLomba.size();i++) 
         {
-              // menampilkan urutan informasi lomba umum
+              // menampilkan urutan informasi lomba
             System.out.println((i+1)+". Lomba "+DaftarLomba.get(i).getNamaLomba()); 
-            DaftarLomba.get(i).tampilInformasi();
         }
         // input untuk pemilihan list lomba 
         System.out.print("Pilih informasi lomba (contoh :1) : "); int pil_lmb =  input.nextInt(); input.nextLine();
@@ -107,7 +105,9 @@ public class Main
 
                         Mahasiswa mahasiswa = null; 
                         for (Mahasiswa mhs : DaftarMahasiswa) // cek nim mahasiswa apakah sudah terdaftar
-                        {if(mhs.getNim().equals(nim)) { mahasiswa = mhs; break; }}
+                        {
+                            if(mhs.getNim().equals(nim)) { mahasiswa = mhs; break; }
+                        }
 
                         if (mahasiswa != null)
                         {
@@ -118,10 +118,9 @@ public class Main
                             }
                             else
                             {
-                                System.out.print("Tanggal Daftar (TGL-BLN-THN) : "); String tgl = input.nextLine();
-                                Daftar proses = new Daftar(mahasiswa, lomba_terpilih, mahasiswa.getNim(),tgl);
+                                Daftar proses = new Daftar(mahasiswa, lomba_terpilih, mahasiswa.getNim());
                                 CalonPeserta.add(proses);
-                                proses.prosesPendaftaran(lomba_terpilih);
+                                System.out.println("Calon pendaftar "+proses.getiddaftar()+" sedang di "+proses.getstatus());
                             }
                         }
                         else {System.out.println("NIM "+nim+" tidak terdaftar ! "); return;}        
@@ -166,7 +165,9 @@ public class Main
 
                 System.out.println("Anda memilih peserta pendaftaran atas nama "+pendaftar_terpilih.getclassMahasiswa().getNama());
                 pendaftar_terpilih.tampilBuktiDaftar();
-                System.out.print("Status baru (Disetujui/Ditolak) : "); String statusBaru = input.nextLine();
+                System.out.print("Status baru (Disetujui/Ditolak) : "); 
+                String statusBaru = input.nextLine();
+                
                 if (statusBaru.equalsIgnoreCase("ditolak"))
                 {   
                     pendaftar_terpilih.updateStatus(statusBaru);

@@ -1,22 +1,22 @@
-import java.util.ArrayList;;
+import java.util.ArrayList; //---> menampung arraylist
+
 
 class Daftar
 {
     private Mahasiswa mhs;
     private Lomba lmb;
-    private String idPendaftar, tanggalDaftar,status;
+    private String idPendaftar,status;
  
-    Daftar(Mahasiswa mhs, Lomba lmb, String iddaftar, String tgldaftar)
+    Daftar(Mahasiswa mhs, Lomba lmb, String iddaftar)
     {
         this.mhs = mhs;
         this.lmb = lmb;
         this.idPendaftar = "DF-"+iddaftar+"-LMB";
-        this.tanggalDaftar = tgldaftar;
-        this.status = "";
+        this.status = "Sedang diproses ! ";
     }
 
     // ini getter
-    String getiddaftar() {return idPendaftar;}   String gettgldaftar(){return tanggalDaftar;}
+    String getiddaftar() {return idPendaftar;}  
     String getstatus() {return status;}  Mahasiswa getclassMahasiswa() {return mhs;} 
     Lomba getclassLomba() {return lmb;}
 
@@ -68,7 +68,6 @@ class Daftar
     {
         System.out.println("\n---> BUKTI PENDAFTARAN "+mhs.getNama().toUpperCase()+" <---");
         System.out.println("ID pendaftar :"+idPendaftar);
-        System.out.println("Tanggal Daftar :"+tanggalDaftar);
         System.out.println("Nama Mahasiswa : "+mhs.getNama());
         System.out.println("Prodi : "+mhs.getProdi());
         System.out.println("Nomor HP : "+mhs.getNohp());
